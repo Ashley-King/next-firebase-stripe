@@ -2,18 +2,18 @@ import {useEffect} from 'react';
 import {useRouter} from 'next/router';
 import {Link} from 'next/link';
 import {useAuthUser} from '../lib/useFirebaseAuth';
-import{Container, Row, Col} from 'react-bootstrap';
+import{Container, Row, Col, Button} from 'react-bootstrap';
 
 const Dashboard = () => {
-  const {authUser, loading} = useAuthUser();
+  const {authUser, loading, signOut} = useAuthUser();
   const router = useRouter();
   
   useEffect(() => {
     if(!authUser && !loading) {
       router.push('/');
     }
-  } , [authUser, loading])
-  
+  } , [router, authUser, loading])
+
   return (
    
       <Container>
@@ -25,6 +25,12 @@ const Dashboard = () => {
                 <a>Home</a>
               </Link>
             </p>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Button variant="primary" onClick={signOut}>Sign Out</Button>
+
           </Col>
         </Row>
       </Container>
